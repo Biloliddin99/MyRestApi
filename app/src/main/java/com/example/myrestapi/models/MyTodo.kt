@@ -1,11 +1,11 @@
 package com.example.myrestapi.models
 
 data class MyTodo(
-    val bajarildi: Boolean,
-    val batafsil: String,
+    var bajarildi: Boolean,
+    var batafsil: String,
     val id: Int,
     var oxirgi_muddat: String,
-    val sana: String,
-    val sarlavha: String,
-    val zarurlik: String
+    var sana: String,
+    var sarlavha: String,
+    var zarurlik: String
 )

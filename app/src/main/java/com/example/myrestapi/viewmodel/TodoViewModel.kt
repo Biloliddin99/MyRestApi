@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myrestapi.models.MyTodo
+import com.example.myrestapi.models.MyTodoPostRequest
 import com.example.myrestapi.models.TodoPostRequest
 import com.example.myrestapi.repository.TodoRepository
 import com.example.myrestapi.retrofit.ApiClient
@@ -36,7 +37,7 @@ class TodoViewModel(private val todoRepository: TodoRepository) : ViewModel() {
     }
 
     private val postLiveData = MutableLiveData<Resources<MyTodo>>()
-    fun addTodo(todoPostRequest: TodoPostRequest):MutableLiveData<Resources<MyTodo>> {
+    fun addTodo(todoPostRequest: TodoPostRequest): MutableLiveData<Resources<MyTodo>> {
         viewModelScope.launch {
             postLiveData.postValue(Resources.loading("Loading"))
             try {
@@ -54,4 +55,45 @@ class TodoViewModel(private val todoRepository: TodoRepository) : ViewModel() {
         return postLiveData
     }
 
+    private val liveDataUpdate = MutableLiveData<Resources<MyTodo>>()
+    fun updateMyTodo(
+        id: Int,
+        myTodoPostRequest: MyTodoPostRequest
+    ): MutableLiveData<Resources<MyTodo>> {
+
+        viewModelScope.launch {
+            liveDataUpdate.postValue(Resources.loading("Loading update"))
+            try {
+                coroutineScope {
+                    val response = async {
+                        todoRepository.updateTodo(id, myTodoPostRequest)
+                    }.await()
+                    liveDataUpdate.postValue(Resources.success(response))
+                    getAllTodo()
+                }
+            } catch (e: Exception) {
+                liveDataUpdate.postValue(Resources.error(e.message))
+            }
+        }
+        return liveDataUpdate
+
+    }
+
+    fun deleteTodo(id: Int){
+
+        viewModelScope.launch {
+            try {
+                coroutineScope {
+                    val response = launch {
+                        todoRepository.deleteTodo(id)
+                    }
+
+                    getAllTodo()
+                }
+            } catch (e: Exception) {
+
+            }
+        }
+
+    }
 }

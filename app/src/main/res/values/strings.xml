@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyRestApi</string>
     <string name="sarlavha">sarlavha</string>
+    <string name="bajarildi">Bajarildi</string>
 </resources>

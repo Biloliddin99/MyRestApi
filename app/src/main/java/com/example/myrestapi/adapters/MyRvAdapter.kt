@@ -16,6 +16,7 @@ class MyRvAdapter(var list: List<MyTodo> = emptyList(),val rvClick: RvClick) :
         fun onBind(myTodo: MyTodo, position: Int) {
             itemRvBinding.batafsil.text = myTodo.batafsil
             itemRvBinding.sana.text = myTodo.sana
+            itemRvBinding.bajarildi.text=  myTodo.bajarildi.toString()
             itemRvBinding.oxirgiMuddat.text = myTodo.oxirgi_muddat
             itemRvBinding.zarurlik.text = myTodo.zarurlik
             itemRvBinding.sarlavha.text = myTodo.sarlavha
