@@ -57,9 +57,7 @@ class TodoViewModel(private val todoRepository: TodoRepository) : ViewModel() {
 
     private val liveDataUpdate = MutableLiveData<Resources<MyTodo>>()
     fun updateMyTodo(
-        id: Int,
-        myTodoPostRequest: MyTodoPostRequest
-    ): MutableLiveData<Resources<MyTodo>> {
+        id: Int, myTodoPostRequest: MyTodoPostRequest): MutableLiveData<Resources<MyTodo>> {
 
         viewModelScope.launch {
             liveDataUpdate.postValue(Resources.loading("Loading update"))
@@ -84,7 +82,7 @@ class TodoViewModel(private val todoRepository: TodoRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 coroutineScope {
-                    val response = launch {
+                    launch {
                         todoRepository.deleteTodo(id)
                     }
 

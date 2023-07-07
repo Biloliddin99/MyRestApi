@@ -6,6 +6,7 @@ import com.example.myrestapi.models.TodoPostRequest
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -18,7 +19,7 @@ interface ApiService {
     @POST("plan/")
     suspend fun addTodo(@Body todoPostRequest:TodoPostRequest):MyTodo
 
-    @PUT("plan/{id}/")
+    @PATCH("plan/{id}/")
     suspend fun updateTodo(@Path ("id") id:Int, @Body myTodoPostRequest: MyTodoPostRequest):MyTodo
 
     @DELETE("plan/{id}/")

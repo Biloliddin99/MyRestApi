@@ -44,10 +44,8 @@ class MainActivity : AppCompatActivity(), RvClick {
         setContentView(binding.root)
 
         todoRepository = TodoRepository(ApiClient.getApiService())
-        todoViewModel = ViewModelProvider(
-            this,
-            MyViewModelFactory(todoRepository)
-        )[TodoViewModel::class.java]
+        todoViewModel =
+            ViewModelProvider(this, MyViewModelFactory(todoRepository))[TodoViewModel::class.java]
         myRvAdapter = MyRvAdapter(rvClick = this)
         binding.myRv.adapter = myRvAdapter
         todoViewModel.getAllTodo()
@@ -89,7 +87,6 @@ class MainActivity : AppCompatActivity(), RvClick {
                 val year = currentDate.get(Calendar.YEAR)
                 val month = currentDate.get(Calendar.MONTH)
                 val day = currentDate.get(Calendar.DAY_OF_MONTH)
-
                 val datePicker = DatePickerDialog(
                     this,
                     { _, selectedYear, selectedMonth, selectedDay ->
